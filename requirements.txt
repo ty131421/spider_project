@@ -1,0 +1,13 @@
+requests
+beautifulsoup4
+lxml
+selenium
+pandas
+matplotlib
+seaborn
+pymysql
+tqdm
+fake-useragent
+jieba
+snownlp
+wordcloud

@@ -156,3 +156,75 @@ plt.savefig("comment_wordcloud.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 print("\n✅ 数据分析与可视化全部完成！")
+
+
+# --------------------- 加分项：短评情感倾向分析 ---------------------
+from snownlp import SnowNLP
+import jieba
+import pandas as pd
+import matplotlib.pyplot as plt
+import pymysql
+
+# 1. 配置中文显示
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 2. 从数据库读取短评数据
+conn = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='2006317',
+    database='douban_movie',
+    charset='utf8mb4'
+)
+df_comments = pd.read_sql("SELECT * FROM comments", conn)
+conn.close()
+
+# 3. 数据清洗：去除空评论和过短评论
+df_comments = df_comments.dropna(subset=['content'])
+df_comments = df_comments[df_comments['content'].str.len() > 2]
+print(f"✅ 有效短评数量：{len(df_comments)} 条")
+
+# 4. 情感分析
+def analyze_sentiment(text):
+    s = SnowNLP(text)
+    return s.sentiments
+
+df_comments['sentiment_score'] = df_comments['content'].apply(analyze_sentiment)
+
+# 5. 按分数分类
+def sentiment_category(score):
+    if score > 0.6:
+        return '正面'
+    elif score < 0.4:
+        return '负面'
+    else:
+        return '中性'
+
+df_comments['sentiment_category'] = df_comments['sentiment_score'].apply(sentiment_category)
+
+# 6. 统计结果
+sentiment_count = df_comments['sentiment_category'].value_counts()
+sentiment_ratio = df_comments['sentiment_category'].value_counts(normalize=True) * 100
+
+print("\n===== 短评情感倾向统计 =====")
+print(sentiment_count)
+print("\n各类情感占比：")
+print(sentiment_ratio.round(2))
+
+# 7. 可视化：情感分布饼图
+plt.figure(figsize=(8, 8))
+colors = ['#66b3ff', '#ff9999', '#99ff99']
+plt.pie(
+    sentiment_count,
+    labels=sentiment_count.index,
+    autopct='%1.1f%%',
+    startangle=90,
+    colors=colors,
+    textprops={'fontsize': 12}
+)
+plt.title("豆瓣TOP250电影短评情感倾向分布", fontsize=14)
+plt.savefig("sentiment_pie.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+print("\n✅ 短评情感分析完成！")

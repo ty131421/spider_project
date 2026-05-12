@@ -179,9 +179,9 @@ python run_spider.py
 
 | 成员 | 负责模块 | 完成进度 |
 |------|----------|----------|
-| 成员A | 基础requests爬取、Selenium动态处理、海报下载、反爬策略 | ✅ 已完成 |
-| 成员B | Scrapy框架重构、MySQL存储Pipeline、数据清洗、日志异常处理 | ✅ 已完成 |
-| 成员A、B | 数据分析、可视化图表、情感分析、报告整合、Git仓库管理 | ❌ 待完成 |
+| 成员A | 基础requests爬取、Selenium动态处理、海报下载、导出csv/json | ✅ 已完成 |
+| 成员B | Scrapy框架重构、数据分析、可视化图表、情感分析、反爬虫与性能优化 | ✅ 已完成 |
+| 成员A、B | ·报告整合、Git仓库管理 、演示PPT | ❌ 待完成 |
 
 ## 📝 运行截图
 
@@ -198,25 +198,25 @@ python run_spider.py
 
 ### 数据存取过程
 
-![a3e53942cbef2e098d23ca28891997ac](D:/xwechat_files/wxid_ee872blyt3tr22_c35c/temp/RWTemp/2026-05/a3e53942cbef2e098d23ca28891997ac.png)
+![a3e53942cbef2e098d23ca28891997ac](assets/a3e53942cbef2e098d23ca28891997ac.png)
 
 ### 数据分析与可视化
 
-![image-20260512170649176](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170649176.png)
+![image-20260512170649176](assets/image-20260512170649176.png)
 
-![image-20260512170706350](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170706350.png)
+![image-20260512170706350](assets/image-20260512170706350.png)
 
-![image-20260512170724732](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170724732.png)
+![image-20260512170724732](assets/image-20260512170724732.png)
 
-![image-20260512170735503](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170735503.png)
+![image-20260512170735503](assets/image-20260512170735503.png)
 
-![image-20260512170746096](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170746096.png)
+![image-20260512170746096](assets/image-20260512170746096.png)
 
-![image-20260512170809713](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170809713.png)
+![image-20260512170809713](assets/image-20260512170809713.png)
 
-![image-20260512170901113](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170901113.png)
+![image-20260512170901113](assets/image-20260512170901113.png)
 
-![image-20260512171010521](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512171010521.png)
+![image-20260512171010521](assets/image-20260512171010521.png)
 
 
 

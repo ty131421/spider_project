@@ -1,3 +1,7 @@
+
+
+
+
 # 豆瓣电影Top250爬虫数据采集与分析系统
 
 ## 项目简介
@@ -51,31 +55,56 @@
 
 ## 🛠️ 技术栈
 
-| 模块 | 技术 | 版本 |
+| 模块 | 技术 | 说明 |
 |------|------|------|
-| 基础爬取 | requests | >=2.31.0 |
-| HTML解析 | BeautifulSoup4 | >=4.12.0 |
-| 动态页面 | Selenium | >=4.17.0 |
-| 数据库 | PyMySQL | >=1.1.0 |
-| 进度显示 | tqdm | >=4.66.0 |
+| 基础爬取  | `requests`               | 轻量 HTTP 请求库   |
+| HTML 解析 | `BeautifulSoup4`         | 页面数据提取       |
+| 动态页面 | `Selenium` | 版本>=4.17.0 |
+| 框架爬虫 | `Scrapy` | 高并发爬虫框架 |
+| 数据库    | `PyMySQL`                | MySQL 连接与操作   |
+| 进度显示  | `tqdm`                   | 爬取进度可视化     |
+| 数据分析 | `pandas` | 数据清洗与统计 |
+| 可视化 | `matplotlib`/`wordcloud` | 图表生成与词云制作 |
 
 ## 📁 项目结构
 
 ```
-douban_project/
-├── spider_requests.py          # requests基础爬取模块（列表页）
-├── spider_selenium_edge.py     # Selenium动态爬取模块（详情页+短评）
-├── poster_downloader.py        # 海报下载模块（支持断点续传）
-├── run_spider.py              # 主运行脚本
-├── db.py                      # MySQL数据库操作（建表、插入、查询）
-├── anti_spider.py             # 反爬虫配置（User-Agent池、随机延时）
-├── settings.py                # 配置文件（数据库连接等）
-├── requirements.txt           # Python依赖列表
-├── douban_top250.csv          # CSV格式数据备份
-├── douban_top250.json         # JSON格式数据备份
-├── douban_movie.sql           # MySQL数据库备份
-├── crawl.log                  # 爬取日志
-└── posters/                   # 海报图片目录（运行后自动生成）
+spider_project/
+├── .venv/                                      # 项目虚拟环境目录
+├── douban_scrapy/                              # Scrapy爬虫项目目录
+│   ├── douban_scrapy/
+│   │   ├── spiders/
+│   │   │   └── douban.py                       # Scrapy爬虫主文件
+│   │   ├── __init__.py
+│   │   ├── items.py                            # Scrapy数据模型定义
+│   │   ├── middlewares.py                      # Scrapy中间件配置
+│   │   ├── pipelines.py                        # Scrapy数据管道配置
+│   │   └── settings.py                         # Scrapy项目配置文件
+│   ├── douban_top250_scrapy.csv                # Scrapy爬取数据（CSV格式）
+│   ├── douban_top250_scrapy.json               # Scrapy爬取数据（JSON格式）
+│   ├── scrapy.cfg                              # Scrapy项目根配置文件
+│   └── scrapy_crawl.log                        # Scrapy爬取日志文件
+├── posters/                                    # 电影海报本地存储目录
+├── anti_spider.py                              # 反爬优化工具模块（随机UA、延迟、日志）
+├── comment_wordcloud.png                       # 电影短评词云可视化图表
+├── crawl.log                                   # Requests版爬虫爬取日志
+├── data_analysis.py                            # 数据分析与可视化主脚本
+├── db.py                                       # MySQL数据库操作工具模块
+├── douban_movie.sql                            # 数据库建表SQL脚本
+├── douban_top250.csv                           # Requests版爬取数据（CSV格式）
+├── douban_top250.json                          # Requests版爬取数据（JSON格式）
+├── genre_pie_optimized.png                     # 电影类型分布饼图
+├── poster_downloader.py                        # 电影海报批量下载脚本
+├── README.md                                   # 项目说明文档
+├── requirements.txt                            # 项目依赖库清单
+├── score_count_clear.png                       # 电影评分分布直方图
+├── score_vote_scatter.png                      # 评分与评价人数相关性散点图
+├── sentiment_pie.png                           # 情感分析结果饼图
+├── settings.py                                 # 全局配置文件（爬取参数、数据库配置）
+├── spider_requests.py                          # Requests版主爬虫（任务五优化版）
+├── spider_selenium_edge.py                     # Selenium备用爬虫方案
+├── update_poster_paths.py                      # 海报路径批量更新脚本
+└── year_trend.png                              # 电影上映年份趋势折线图
 ```
 
 ## 🚀 快速开始
@@ -151,8 +180,8 @@ python run_spider.py
 | 成员 | 负责模块 | 完成进度 |
 |------|----------|----------|
 | 成员A | 基础requests爬取、Selenium动态处理、海报下载、反爬策略 | ✅ 已完成 |
-| 成员B | Scrapy框架重构、MySQL存储Pipeline、数据清洗、日志异常处理 | ❌ 待完成 |
-| 成员C | 数据分析、可视化图表、情感分析、报告整合、Git仓库管理 | ❌ 待完成 |
+| 成员B | Scrapy框架重构、MySQL存储Pipeline、数据清洗、日志异常处理 | ✅ 已完成 |
+| 成员A、B | 数据分析、可视化图表、情感分析、报告整合、Git仓库管理 | ❌ 待完成 |
 
 ## 📝 运行截图
 
@@ -166,6 +195,30 @@ python run_spider.py
 数据已导出到 douban_top250.csv
 数据已导出到 douban_top250.json
 ```
+
+### 数据存取过程
+
+![a3e53942cbef2e098d23ca28891997ac](D:/xwechat_files/wxid_ee872blyt3tr22_c35c/temp/RWTemp/2026-05/a3e53942cbef2e098d23ca28891997ac.png)
+
+### 数据分析与可视化
+
+![image-20260512170649176](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170649176.png)
+
+![image-20260512170706350](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170706350.png)
+
+![image-20260512170724732](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170724732.png)
+
+![image-20260512170735503](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170735503.png)
+
+![image-20260512170746096](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170746096.png)
+
+![image-20260512170809713](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170809713.png)
+
+![image-20260512170901113](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512170901113.png)
+
+![image-20260512171010521](../../../../AppData/Roaming/Typora/typora-user-images/image-20260512171010521.png)
+
+
 
 ## ⚠️ 注意事项
 

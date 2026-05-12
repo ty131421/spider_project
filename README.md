@@ -26,12 +26,17 @@
 - ✅ CSV格式数据备份
 - ✅ JSON格式数据备份
 
-### ❌ 待完成功能
+#### 3. 框架重构
 
-#### 3. 数据存储与框架重构（待完成）
-- ❌ 使用Scrapy框架完整重构核心爬虫逻辑
-- ❌ 实现Scrapy Item、Spider、Pipeline、Downloader Middleware
-- ❌ requests与Scrapy性能对比分析
+- ✅ MySQL双表存储：movies主表 + comments短评表（使用外键关联）
+- ✅ CSV格式数据备份
+- ✅ JSON格式数据备份
+
+- ✅ 使用Scrapy框架完整重构核心爬虫逻辑
+- ✅ 实现Scrapy Item、Spider、Pipeline、Downloader Middleware
+- ✅ requests与Scrapy性能对比分析
+
+### ❌ 待完成功能
 
 #### 4. 数据分析与可视化模块（待完成）
 - ❌ 使用pandas进行数据清洗（缺失值处理、类型转换、去重）
